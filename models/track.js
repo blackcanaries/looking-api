@@ -15,4 +15,4 @@ const trackSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-module.exports = mongoose.model("Sample", trackSchema);
+module.exports = mongoose.model("Track", trackSchema);

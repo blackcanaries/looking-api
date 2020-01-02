@@ -8,11 +8,16 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+// Authentication files
+const passport = require("passport");
+require("./config/passport")(passport);
+
 // Connect to the database
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 });
 
 const db = mongoose.connection;
@@ -23,8 +28,17 @@ db.once("open", () => console.log("Connected to database"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(passport.initialize());
 
-// Track routes
+// Routes
+// app.use("/users", require("./routes/users"));
+app.use("/users/signup", require("./routes/users/signup"));
+app.use("/users/confirm", require("./routes/users/confirm"));
+app.use("/users/login", require("./routes/users/login"));
+app.use("/users/me", require("./routes/users/get"));
+app.use("/users/me", require("./routes/users/patch"));
+app.use("/users/me", require("./routes/users/delete"));
+
 app.use("/tracks", require("./routes/tracks"));
 
 // Start API server
