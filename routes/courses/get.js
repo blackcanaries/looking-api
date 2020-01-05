@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
       res.status(404).json({
         success: false,
         object: "course",
-        message: "Cant find course"
+        message: "Cant find course."
       });
     }
   } catch (err) {
@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) => {
   res.json({
     success: true,
     object: "course",
-    message: "Course found",
+    message: "Course found.",
     data: course
   });
 });

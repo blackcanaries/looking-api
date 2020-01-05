@@ -21,7 +21,7 @@ router.delete("/:id", async (req, res) => {
       res.status(404).json({
         success: false,
         object: "course",
-        message: "Can't find course"
+        message: "Can't find course."
       });
     }
   } catch (err) {

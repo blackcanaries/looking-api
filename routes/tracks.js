@@ -8,15 +8,29 @@ const Track = require("../models/track");
 router.get("/", async (req, res) => {
   try {
     const tracks = await Track.find();
-    res.json(tracks);
+    res.json({
+      success: true,
+      object: "track",
+      message: `${tracks.length} Tracks found.`,
+      data: tracks
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.json({
+      success: false,
+      object: "track",
+      message: err.message
+    });
   }
 });
 
 // Get a track
 router.get("/:id", getTrack, (req, res) => {
-  res.json(res.track);
+  res.json({
+    success: true,
+    object: "track",
+    message: "Track found.",
+    data: res.track
+  });
 });
 
 // Create a track
@@ -30,9 +44,18 @@ router.post("/", async (req, res) => {
 
   try {
     const newTrack = await track.save();
-    res.status(201).json(newTrack);
+    res.json({
+      success: true,
+      object: "track",
+      message: "Track was successfully created.",
+      data: newTrack
+    });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.json({
+      success: false,
+      object: "track",
+      message: err.message
+    });
   }
 });
 
@@ -56,9 +79,18 @@ router.patch("/:id", getTrack, async (req, res) => {
 
   try {
     const updatedTrack = await res.track.save();
-    res.json(updatedTrack);
+    res.json({
+      success: true,
+      object: "track",
+      message: "Track has been updated.",
+      data: updatedTrack
+    });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.json({
+      success: false,
+      object: "track",
+      message: err.message
+    });
   }
 });
 
@@ -66,9 +98,17 @@ router.patch("/:id", getTrack, async (req, res) => {
 router.delete("/:id", getTrack, async (req, res) => {
   try {
     await res.track.remove();
-    res.json({ message: "Deleted Track" });
+    res.json({
+      success: true,
+      object: "track",
+      message: "Track was successfully deleted."
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.json({
+      success: false,
+      object: "track",
+      message: err.message
+    });
   }
 });
 
@@ -79,10 +119,18 @@ async function getTrack(req, res, next) {
   try {
     track = await Track.findOne({ _id: req.params.id });
     if (track == null) {
-      return res.status(404).json({ message: "Cant find track" });
+      return res.json({
+        success: false,
+        object: "track",
+        message: "Cant find track."
+      });
     }
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return res.json({
+      success: false,
+      object: "track",
+      message: err.message
+    });
   }
 
   res.track = track;

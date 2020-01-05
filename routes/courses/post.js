@@ -27,7 +27,11 @@ router.post("/", async (req, res) => {
       data: course
     });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({
+      success: false,
+      object: "course",
+      message: err.message
+    });
   }
 });
 
