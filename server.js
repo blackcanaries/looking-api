@@ -30,8 +30,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(passport.initialize());
 
-// Routes
-// app.use("/users", require("./routes/users"));
+// User route
 app.use("/users/signup", require("./routes/users/signup"));
 app.use("/users/confirm", require("./routes/users/confirm"));
 app.use("/users/login", require("./routes/users/login"));
@@ -39,6 +38,14 @@ app.use("/users/me", require("./routes/users/get"));
 app.use("/users/me", require("./routes/users/patch"));
 app.use("/users/me", require("./routes/users/delete"));
 
+// Course route
+app.use("/courses", require("./routes/courses/post"));
+app.use("/courses", require("./routes/courses/get"));
+app.use("/courses", require("./routes/courses/get_all"));
+app.use("/courses", require("./routes/courses/patch"));
+app.use("/courses", require("./routes/courses/delete"));
+
+// Track route
 app.use("/tracks", require("./routes/tracks"));
 
 // Start API server
