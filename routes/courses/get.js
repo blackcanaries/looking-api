@@ -12,14 +12,14 @@ router.get("/:id", async (req, res) => {
       .populate("tracks")
       .exec();
     if (course == null) {
-      res.status(404).json({
+      res.json({
         success: false,
         object: "course",
-        message: "Cant find course."
+        message: "Can't find course."
       });
     }
   } catch (err) {
-    res.status(500).json({
+    res.json({
       success: false,
       object: "course",
       message: err.message

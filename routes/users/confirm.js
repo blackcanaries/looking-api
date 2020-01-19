@@ -33,7 +33,11 @@ router.patch("/", getUser, async (req, res) => {
         message: "Your account has been activated"
       });
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.json({
+        success: false,
+        object: "user",
+        message: err.message
+      });
     }
   }
 });

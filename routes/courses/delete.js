@@ -18,14 +18,14 @@ router.delete("/:id", async (req, res) => {
         message: "Course was successfully deleted."
       });
     } else {
-      res.status(404).json({
+      res.json({
         success: false,
         object: "course",
         message: "Can't find course."
       });
     }
   } catch (err) {
-    res.status(500).json({
+    res.json({
       success: false,
       object: "course",
       message: err.message

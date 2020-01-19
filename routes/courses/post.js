@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
       data: course
     });
   } catch (err) {
-    res.status(400).json({
+    res.json({
       success: false,
       object: "course",
       message: err.message

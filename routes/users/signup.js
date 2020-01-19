@@ -51,7 +51,11 @@ router.post("/", async (req, res) => {
         message: "Your account was successfully created."
       });
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.json({
+        success: false,
+        object: "user",
+        message: err.message
+      });
     }
   }
 });

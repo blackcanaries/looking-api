@@ -38,8 +38,17 @@ app.use("/users/me", require("./routes/users/get"));
 app.use("/users/me", require("./routes/users/patch"));
 app.use("/users/me", require("./routes/users/delete"));
 
+// Activity route
+app.use("/activities", require("./routes/activities/post"));
+app.use("/activities", require("./routes/activities/get"));
+app.use("/activities", require("./routes/activities/get_all"));
+app.use("/activities", require("./routes/activities/delete"));
+
 // Achievement route
 app.use("/achievements", require("./routes/achievements"));
+
+// Challenge route
+app.use("/challenges", require("./routes/challenges"));
 
 // Course route
 app.use("/courses", require("./routes/courses/post"));

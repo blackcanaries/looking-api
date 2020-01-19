@@ -4,6 +4,31 @@ const express = require("express");
 const router = express.Router();
 const Achievement = require("../models/achievement");
 
+// Create a achievement
+router.post("/", async (req, res) => {
+  const achievement = new Achievement({
+    title: req.body.title,
+    description: req.body.description,
+    type: req.body.type
+  });
+
+  try {
+    const newAchievement = await achievement.save();
+    res.json({
+      success: true,
+      object: "achievement",
+      message: "Achievement was successfully created.",
+      data: newAchievement
+    });
+  } catch (err) {
+    res.json({
+      success: false,
+      object: "achievement",
+      message: err.message
+    });
+  }
+});
+
 // Get all achievements
 router.get("/", async (req, res) => {
   try {
@@ -31,31 +56,6 @@ router.get("/:id", getAchievement, (req, res) => {
     message: "Achievement found.",
     data: res.achievement
   });
-});
-
-// Create a achievement
-router.post("/", async (req, res) => {
-  const achievement = new Achievement({
-    title: req.body.title,
-    description: req.body.description,
-    type: req.body.type
-  });
-
-  try {
-    const newAchievement = await achievement.save();
-    res.json({
-      success: true,
-      object: "achievement",
-      message: "Achievement was successfully created.",
-      data: newAchievement
-    });
-  } catch (err) {
-    res.json({
-      success: false,
-      object: "achievement",
-      message: err.message
-    });
-  }
 });
 
 // Update a achievement

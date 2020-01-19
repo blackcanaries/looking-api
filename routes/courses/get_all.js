@@ -10,14 +10,14 @@ router.get("/", async (req, res) => {
   try {
     courses = await Course.find({}, { tracks: 0 });
     if (courses.length < 1) {
-      res.status(404).json({
+      res.json({
         success: false,
         object: "course",
-        message: "Cant find any courses."
+        message: "Can't find any courses."
       });
     }
   } catch (err) {
-    res.status(500).json({
+    res.json({
       success: false,
       object: "course",
       message: err.message

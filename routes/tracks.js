@@ -4,6 +4,32 @@ const express = require("express");
 const router = express.Router();
 const Track = require("../models/track");
 
+// Create a track
+router.post("/", async (req, res) => {
+  const track = new Track({
+    title: req.body.title,
+    duration: req.body.duration,
+    url: req.body.url,
+    author: req.body.author
+  });
+
+  try {
+    const newTrack = await track.save();
+    res.json({
+      success: true,
+      object: "track",
+      message: "Track was successfully created.",
+      data: newTrack
+    });
+  } catch (err) {
+    res.json({
+      success: false,
+      object: "track",
+      message: err.message
+    });
+  }
+});
+
 // Get all tracks
 router.get("/", async (req, res) => {
   try {
@@ -31,32 +57,6 @@ router.get("/:id", getTrack, (req, res) => {
     message: "Track found.",
     data: res.track
   });
-});
-
-// Create a track
-router.post("/", async (req, res) => {
-  const track = new Track({
-    title: req.body.title,
-    duration: req.body.duration,
-    url: req.body.url,
-    author: req.body.author
-  });
-
-  try {
-    const newTrack = await track.save();
-    res.json({
-      success: true,
-      object: "track",
-      message: "Track was successfully created.",
-      data: newTrack
-    });
-  } catch (err) {
-    res.json({
-      success: false,
-      object: "track",
-      message: err.message
-    });
-  }
 });
 
 // Update a track
